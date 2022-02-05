@@ -1,0 +1,18 @@
+title 0.4
+
+browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/newnote
+browser->server: Content for new note
+note over server:
+The note contents are sent to the server where it is added to the internal
+database. Reloading the page will now show us the new note.
+end note
+browser-->server:HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+server-->browser: HTML-code
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+server-->browser: main.css
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+server-->browser: main.js
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+server-->browser: [{ content: "HTML is easy", date: "2020-05-23" }, ...]
+browser->server: HTTP GET https://studies.cs.helsinki.fi/favicon.ico
+server-->browser: favicon.ico

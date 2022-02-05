@@ -1,0 +1,12 @@
+title 0.6
+
+note over browser:
+JS appends the new note in the notes array and redraws the list
+end note
+
+browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/newnote_spa
+browser->server: Content for new note 
+
+note over server:
+JS sends the new note and the server adds it to the database.
+end note
