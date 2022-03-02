@@ -14,20 +14,50 @@ const App = () => {
     'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients'
   ]
-   
+
   const [selected, setSelected] = useState(0)
   const [votes, setVotes] = useState(Array(anecdotes.length).fill(0))
 
   const max = anecdotes.length - 1
   const changeAnecdote = () => { setSelected(Math.floor(Math.random() * (max - 0 + 1)) + 0) }
-  const incrementVote = () => { setVotes(votes[selected] += 1) }
+
+  const incrementVote = () => {
+    // Make a copy of votes array, increment at the required position and then set new state
+    const copy = [...votes]
+    copy[selected] += 1
+    setVotes(copy)
+  }
+
+  const maxVoted = () => {
+    let maxVal = 0
+    let maxIndex = 0
+
+    const compare = (val, ind) => {
+      if(val > maxVal){
+        maxVal = val
+        maxIndex = ind
+      }
+    }
+    votes.forEach(compare)
+    return maxIndex
+  }
+
+  let best = maxVoted()
 
   return (
     <div>
-      <p>{anecdotes[selected]}</p>
-      <p>has {votes[selected]} votes</p>
-      <Button handleClick = {changeAnecdote} text = "Next Anecdote"/>
-      <Button handleClick = {incrementVote} text = "Vote"/>
+      <div>
+        <h1>Anecdote of the day</h1>
+        <p>{anecdotes[selected]}</p>
+        <p>has {votes[selected]} votes</p>
+        <Button handleClick = {changeAnecdote} text = "Next Anecdote"/>
+        <Button handleClick = {incrementVote} text = "Vote"/>
+      </div>
+      <div>
+        <h1>Anecdote with most votes</h1>
+        <p>{anecdotes[best]}</p>
+        <p>Votes: {votes[best]}</p>
+      </div>
     </div>
   )
 }
